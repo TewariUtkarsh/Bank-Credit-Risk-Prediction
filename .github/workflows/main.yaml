@@ -5,7 +5,7 @@ on:
 
 jobs:
   heroku_build:
-    name: Build and Push Docker Container to Heroku
+    name: Build, Push and Release a Docker container to Heroku.
     runs-on: ubuntu-latest
     steps:
 
@@ -88,7 +88,7 @@ jobs:
           file: Dockerfile.heroku
           push: true
           tags: |
-            tewariutkarsh22/scaling-spoon:latest
+            tewariutkarsh22/bank-credit-risk-prediction:latest
 
 
 # FOR AWS: .github/workflows/main.yml continued
@@ -109,14 +109,14 @@ jobs:
       - name: Generate Deployment Package
         run: zip -r deploy.zip .
 
-      - name: Deploy to EB
+      - name: Deploy to AWS EB
         uses: einaregilsson/beanstalk-deploy@v16
         with:
           aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           application_name: ${{ secrets.AWS_APPLICATION_NAME }}
           environment_name: ${{ secrets.AWS_ENVIRONMENT_NAME }}
-          version_label: "docker-app-${{ steps.format-time.outputs.replaced }}"
+          version_label: "bank-credit-risk-prediction-${{ steps.format-time.outputs.replaced }}"
           region: us-west-2
           deployment_package: deploy.zip
 
