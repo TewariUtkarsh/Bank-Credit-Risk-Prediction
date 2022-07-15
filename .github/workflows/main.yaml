@@ -85,7 +85,7 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           context: .
-          file: Dockerfile.heroku
+          file: Dockerfile
           push: true
           tags: |
             tewariutkarsh22/bank-credit-risk-prediction:latest
