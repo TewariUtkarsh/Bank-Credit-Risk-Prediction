@@ -1,0 +1,106 @@
+# CONDA 
+## Cheat Sheet for conda:
+https://kapeli.com/cheat_sheets/Conda.docset/Contents/Resources/Documents/index
+
+
+
+
+
+
+# GIT
+## Update git
+git update-git-for-windows; git update depriciated
+
+## To copy files from git to our system for the first time to load the project.
+git clone https://github.com/TewariUtkarsh/machine_learning_project.git; 
+
+## To bring the new or updated file which our not available on our system from GitHub
+git pull
+
+## To see the log of commits
+git log
+
+## Select python interpreter in VS Code
+(Ctrl + Shift + P)
+
+##  Creating a conda vir env with python
+-p: Creates a virtual env folder in same dir as the project 
+-n: Creates a virtual env folder where our main dir where anaconda is present/installed
+
+## Remove env
+conda remove -n " " --all
+
+## To check rmeote url
+git remote -v
+
+
+
+
+
+
+
+
+
+
+# DOCKER
+## Dockerfile: Contains the instrtuctions/cmds to build a docker image of our code
+
+## .dockerignore
+
+## EXPOSE $PORT: simply specify an env var port to specify on which port to run the app
+
+## gunicorn cmd to run our app.py file
+
+## .github/workflows: for deployment using github actions
+
+## main.yaml: code for github actions just like in .circleci we created config.yaml to write workflows and various steps for creating docker image and upload to docker hub then deploy it on heroku
+CIRCLECI HAS ADVANCED OPTION THROUGH WHICH WE SPECIFY THAT CIRCLECI WILL START THE CONFIG CMD WHEN PUSH IS INITIATTED TO GITHUB
+BUT IN GITHUB ACTIONS WE USED TRIGGERS
+
+## Github secrets: (similar to env var in circleci)
+settings -> secrets -> new repo secret 
+
+
+
+
+
+
+
+
+# HEROKU: 
+## Info from Heroku:
+1. HEROKU_EMAIL: tewariutkarsh0447@gmail.com
+2. HEROKU_API_KEY: 50015559-88d8-453c-a64f-87016bf6d816
+3. HEROKU_APP_NAME: ml-project-github-actions
+
+
+
+
+
+
+
+
+
+
+# AWS
+## Port mapping for our app(docker image) -> 80:5000 as AWS EB listens connections on port 80 by default and the created container listens on port 5000
+
+## Create IAM user who is allowed to deploy code to the EB app
+Users -> Add users -> add user-name -> select access key-programmatic access -> next permissions -> attach existing policies -> adminAccess-AWS EB -> next
+ACCESS KEY ID and SECRET ACCESS KEY generated
+add them to github actions secrets
+
+## SECRETS:
+AWS_ACCESS_KEY_ID: AKIAYYWULDALJ46FAS4E
+AWS_SECRET_ACCESS_KEY: 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
+AWS Account ID: 602814486550
+
+AWS_APPLICATION_NAME: 
+AWS_ENVIRONMENT_NAME: 
+
+## Generate Deployment Package
+Contents of the repo are zipped, becoz AWS EB requires to upload a zipper folder with app and Dockerfile
+
+## IMP LINKS
+DOCKER HUB AND IMG AWS: https://akashsingh.blog/complete-guide-on-deploying-a-docker-application-react-to-aws-elastic-beanstalk-using-docker-hub-and-github-actions
+DOCKER IMG AND AWS: https://towardsdatascience.com/continuous-deployment-pipeline-using-github-actions-docker-and-aws-185bb3bf41b
