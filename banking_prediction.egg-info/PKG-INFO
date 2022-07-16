@@ -1,0 +1,7 @@
+Metadata-Version: 2.1
+Name: banking-prediction
+Version: 0.0.1
+Summary: This project is for bank credit risk prediction
+Author: Utkarsh Tewari
+License: Apache License Version 2.0
+License-File: LICENSE

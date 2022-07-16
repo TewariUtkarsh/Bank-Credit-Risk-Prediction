@@ -1,9 +1,5 @@
-# -e. triggers or initiates the run for setup.py
 flask
 flask_cors
 pandas==0.25.3
 numpy==1.18.1
 gunicorn
--e.
-
-
