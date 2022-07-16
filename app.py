@@ -10,7 +10,7 @@ PORT = os.getenv('$PORT', 5000)
 @app.route('/', methods=['GET', 'POST'])
 @cross_origin()
 def index():
-    return f"Flask App running on Port: {PORT}"
+    return f"Bank Credit Risk Prediction Flask App running on Port: {PORT}"
 
 
 if __name__=='__main__':
