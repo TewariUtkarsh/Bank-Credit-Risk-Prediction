@@ -1,0 +1,9 @@
+.gitignore
+.git/
+__pycache__/
+banking_prediction.egg-info/
+testing/
+logs/
+env_test.py
+
+
