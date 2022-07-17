@@ -1,0 +1,5 @@
+[2022-07-17 16:50:02,268]^;WARNING^;224^;_internal.py^;_log^; * Debugger is active!
+[2022-07-17 16:50:02,298]^;INFO^;224^;_internal.py^;_log^; * Debugger PIN: 321-555-473
+[2022-07-17 16:50:14,494]^;INFO^;17^;demo.py^;index^;Testing the Logging Component
+[2022-07-17 16:50:14,496]^;INFO^;224^;_internal.py^;_log^;127.0.0.1 - - [17/Jul/2022 16:50:14] "GET / HTTP/1.1" 200 -
+[2022-07-17 16:50:14,655]^;INFO^;224^;_internal.py^;_log^;127.0.0.1 - - [17/Jul/2022 16:50:14] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -

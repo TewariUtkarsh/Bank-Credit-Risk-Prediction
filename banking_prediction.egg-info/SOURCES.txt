@@ -3,6 +3,12 @@ README.md
 setup.py
 banking/__init__.py
 banking/component/__init__.py
+banking/config/__init__.py
+banking/constant/__init__.py
+banking/entity/__init__.py
+banking/exception/__init__.py
+banking/logger/__init__.py
+banking/pipeline/__init__.py
 banking_prediction.egg-info/PKG-INFO
 banking_prediction.egg-info/SOURCES.txt
 banking_prediction.egg-info/dependency_links.txt
