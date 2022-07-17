@@ -2,7 +2,8 @@ from datetime import datetime
 
 
 def get_current_time_stamp() -> str:
-    """This function is responsible for returning the 
+    """
+    This function is responsible for returning the 
     current timestamp value in string format.
 
     Returns
