@@ -1,0 +1,159 @@
+columns:
+  alter:
+    - age
+    - int
+  beruf:
+    - job
+    - int
+  beszeit:
+    - employment_duration
+    - int
+  bishkred:
+    - number_credits
+    - int
+  buerge:
+    - other_debtors
+    - int
+  famges:
+    - personal_status_sex
+    - int
+  gastarb:
+    - foreign_worker
+    - int
+  hoehe:
+    - amount
+    - int
+  kredit:
+    - credit_risk
+    - int
+  laufkont:
+    - status
+    - int
+  laufzeit:
+    - duration
+    - int
+  moral:
+    - credit_history
+    - int
+  pers:
+    - people_liable
+    - int
+  rate:
+    - installment_rate
+    - int
+  sparkont:
+    - savings
+    - int
+  telef:
+    - telephone
+    - int
+  verm:
+    - property
+    - int
+  verw:
+    - purpose
+    - int
+  weitkred:
+    - other_installment_plans
+    - int
+  wohn:
+    - housing
+    - int
+  wohnzeit:
+    - present_residence
+    - int
+
+
+target_column: credit_risk
+
+
+domain_value:
+  status:
+    - 1
+    - 2
+    - 3
+    - 4
+  credit_history:
+    - 0
+    - 1
+    - 2
+    - 3
+    - 4 
+  purpose:
+    - 0
+    - 1
+    - 2
+    - 3
+    - 4
+    - 5
+    - 6
+    - 7
+    - 8
+    - 9
+    - 10
+  savings:
+    - 1
+    - 2
+    - 3
+    - 4
+    - 5
+  employment_duration:
+    - 1
+    - 2
+    - 3
+    - 4
+    - 5
+  installment_rate:
+    - 1
+    - 2
+    - 3
+    - 4
+  personal_status_sex:
+    - 1
+    - 2
+    - 3
+    - 4
+  other_debtors:
+    - 1
+    - 2
+    - 3
+  present_residence:
+    - 1
+    - 2
+    - 3
+    - 4
+  property:
+    - 1
+    - 2
+    - 3
+    - 4
+  other_installment_plans:
+    - 1
+    - 2
+    - 3
+  housing:
+    - 1
+    - 2
+    - 3
+  number_credits:
+    - 1
+    - 2
+    - 3
+    - 4
+  job:
+    - 1
+    - 2
+    - 3
+    - 4
+  people_liable:
+    - 1
+    - 2
+  telephone:
+    - 1
+    - 2
+  foreign_worker:
+    - 1
+    - 2
+  credit_risk:
+    - 0
+    - 1
