@@ -67,6 +67,12 @@ columns:
 target_column: credit_risk
 
 
+continuous_column:
+  - age
+  - amount
+  - duration 
+
+
 domain_value:
   status:
     - 1
