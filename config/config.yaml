@@ -1,0 +1,5 @@
+# training pipline config:
+training_pipeline_config:
+  pipeline_name: banking
+  root_artifact_dir: artifact
+
