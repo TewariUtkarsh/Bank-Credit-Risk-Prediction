@@ -3,18 +3,17 @@ import os
 from banking.constant import *
 
 
-# Logging Constants:
-LOGGING_DIR = "logs"
 os.makedirs(LOGGING_DIR, exist_ok=True)
 
-def get_log_file_name():
+
+def get_log_file_name() -> str:
     """
-    This class is responsible for return the 
-    current timestamp value.
+    This class is responsible for returning the 
+    log file name.
 
     Returns
-    ----------
-    str : str
+    -------
+    log_file_name : str
         Returns the current timestamp in string format.
     """
     log_file_name = f"log_{get_current_time_stamp()}.log"
