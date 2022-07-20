@@ -246,3 +246,5 @@ class DataIngestion:
         of the object are deleted i.e when an object is garbage collected.
         """
         logging.info(f"{'='*20}Data Ingestion Log Completed.{'='*20}")
+
+        
