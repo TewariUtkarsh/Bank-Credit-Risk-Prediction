@@ -64,5 +64,59 @@ class Configuration:
         except Exception as e:
             raise BankingException(e, sys) from e
 
+    def get_data_ingestion_config(self) -> DataIngestionConfig:
+        """
+        This function is responsible for generating a named tuple for the
+        data ingestion configuration.
+        Returns
+        -------
+        data_ingestion_config : namedtuple
+            Named tuple for the data ingestion configuration.
+        """
+        try: 
+            data_ingestion_config_info = self.config_file_info[DATA_INGESTION_CONFIG_KEY]
+            root_artifact_dir = self.training_pipeline_config.root_artifact_dir
+            data_ingestion_artifact_dir = os.path.join(
+                root_artifact_dir,
+                DATA_INGESTION_ARTIFACT_DIR,
+                self.current_time_stamp
+            )
+            zip_download_dir = os.path.join(
+                data_ingestion_artifact_dir,
+                data_ingestion_config_info[DATA_INGESTION_ZIP_DOWNLOAD_DIR_KEY]
+            )
+            extracted_data_dir = os.path.join(
+                data_ingestion_artifact_dir,
+                data_ingestion_config_info[DATA_INGESTION_EXTRACTED_DATA_DIR]
+            )
+            raw_data_dir = os.path.join(
+                data_ingestion_artifact_dir,
+                data_ingestion_config_info[DATA_INGESTION_RAW_DATA_DIR_KEY]
+            )
+            ingested_data_dir = os.path.join(
+                data_ingestion_artifact_dir,
+                data_ingestion_config_info[DATA_INGESTION_INGESTED_DATA_DIR_KEY]
+            )
+            ingested_train_dir = os.path.join(
+                ingested_data_dir,
+                data_ingestion_config_info[DATA_INGESTION_INGESTED_TRAIN_DIR_KEY]
+            )
+            ingested_test_dir = os.path.join(
+                ingested_data_dir,
+                data_ingestion_config_info[DATA_INGESTION_INGESTED_TEST_DIR_KEY]
+            )
+            data_ingestion_config = DataIngestionConfig(
+                dataset_download_url=data_ingestion_config_info[DATA_INGESTION_DATASET_DOWNLOAD_URL_KEY],
+                zip_download_dir=zip_download_dir,
+                extracted_data_dir=extracted_data_dir,
+                raw_data_dir=raw_data_dir,
+                ingested_train_dir=ingested_train_dir,
+                ingested_test_dir=ingested_test_dir
+            )
+            logging.info(f"Data Ingestion Configuration: {data_ingestion_config}")
+            return data_ingestion_config
+        except Exception as e:
+            raise BankingException(e, sys) from e
+
 
 
