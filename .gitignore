@@ -132,4 +132,8 @@ dmypy.json
 testing/
 logs/
 env_test.py
-banking\artifact
+banking/artifact
+
+
+
+
