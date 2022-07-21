@@ -1,7 +1,11 @@
+numpy
 flask
 flask_cors
-pandas==0.25.3
-numpy==1.18.1
 gunicorn
-zipfile38
+sklearn
+pandas
 PyYaml
+zipfile38
+evidently
+matplotlib
+seaborn
