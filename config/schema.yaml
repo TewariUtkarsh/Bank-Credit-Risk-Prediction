@@ -74,18 +74,18 @@ continuous_column:
 
 
 domain_value:
-  status:
+  laufkont:
     - 1
     - 2
     - 3
     - 4
-  credit_history:
+  moral:
     - 0
     - 1
     - 2
     - 3
     - 4 
-  purpose:
+  verw:
     - 0
     - 1
     - 2
@@ -97,69 +97,69 @@ domain_value:
     - 8
     - 9
     - 10
-  savings:
+  sparkont:
     - 1
     - 2
     - 3
     - 4
     - 5
-  employment_duration:
+  beszeit:
     - 1
     - 2
     - 3
     - 4
     - 5
-  installment_rate:
+  rate:
     - 1
     - 2
     - 3
     - 4
-  personal_status_sex:
+  famges:
     - 1
     - 2
     - 3
     - 4
-  other_debtors:
+  buerge:
     - 1
     - 2
     - 3
-  present_residence:
-    - 1
-    - 2
-    - 3
-    - 4
-  property:
+  wohnzeit:
     - 1
     - 2
     - 3
     - 4
-  other_installment_plans:
-    - 1
-    - 2
-    - 3
-  housing:
-    - 1
-    - 2
-    - 3
-  number_credits:
+  verm:
     - 1
     - 2
     - 3
     - 4
-  job:
+  weitkred:
+    - 1
+    - 2
+    - 3
+  wohn:
+    - 1
+    - 2
+    - 3
+  bishkred:
     - 1
     - 2
     - 3
     - 4
-  people_liable:
+  beruf:
     - 1
     - 2
-  telephone:
+    - 3
+    - 4
+  pers:
     - 1
     - 2
-  foreign_worker:
+  telef:
     - 1
     - 2
-  credit_risk:
+  gastarb:
+    - 1
+    - 2
+  kredit:
     - 0
     - 1
