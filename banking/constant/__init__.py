@@ -45,3 +45,25 @@ DATA_INGESTION_INGESTED_DATA_DIR_KEY = "ingested_data_dir"
 DATA_INGESTION_INGESTED_TRAIN_DIR_KEY = "ingested_train_dir"
 DATA_INGESTION_INGESTED_TEST_DIR_KEY = "ingested_test_dir"
 DATA_INGESTION_ARTIFACT_DIR = "data_ingestion"
+
+
+# Data Validation:
+DATA_VALIDATION_CONFIG_KEY = "data_validation_config"
+DATA_VALIDATION_SCHEMA_FILE_DIR_KEY = "schema_file_dir"
+DATA_VALIDATION_SCHEMA_FILE_NAME_KEY = "schema_file_name"
+DATA_VALIDATION_REPORT_FILE_NAME_KEY = "report_file_name"
+DATA_VALIDATION_REPORT_PAGE_FILE_NAME_KEY = "report_page_file_name"
+DATA_VALIDATION_ARTIFACT_DIR = "data_validation"
+
+SCHEMA_COLUMN_NAME_KEY = "columns"
+SCHEMA_TARGET_COLUMN_KEY = "target_column"
+SCHEMA_DOMAIN_VALUE_KEY = "domain_value"
+
+DATA_DRIFT_KEY = "data_drift"
+DATA_DRIFT_DATA_KEY = "data"
+DATA_DRIFT_METRICS_KEY = "metrics"
+DATA_DRIFT_DATASET_DRIFT_KEY = "dataset_drift"
+
+
+
+
