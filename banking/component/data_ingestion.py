@@ -30,7 +30,7 @@ class DataIngestion:
             Named tuple for initiating Data Ingestion.
         """
         try:
-            logging.info(f"{'='*20}Data Ingestion Log Started.{'='*20}")
+            logging.info(f"{'='*60}Data Ingestion Log Started.{'='*60}")
             self.data_ingestion_config = data_ingestion_config
         except Exception as e:
             raise BankingException(e, sys) from e
@@ -221,11 +221,13 @@ class DataIngestion:
             Named tuple consisting the artifact related details of Data Ingestion Phase.
         """
         try:
+            logging.info("Initiating the Data Ingestion Phase.")
             zip_file_path = self.download_banking_data()
             extracted_raw_file_path = self.extract_zip_file(zip_file_path=zip_file_path)
             raw_data_file_path = self.get_raw_data_from_extracted_file(extracted_raw_file_path=extracted_raw_file_path)
             train_data_file_path, test_data_file_path = self.split_train_test_data(raw_data_file_path=raw_data_file_path)
             
+            logging.info(f"Data Ingestion Phase Completed Successfully.")
             is_ingested = True
             message = f"Data Ingestion Phase Completed."
             data_ingestion_artifact = DataIngestionArtifact(
@@ -234,7 +236,7 @@ class DataIngestion:
                 train_data_file_path=train_data_file_path,
                 test_data_file_path=test_data_file_path
             )
-            logging.info(f"Data Ingestion Artifact: {data_ingestion_artifact}")
+            logging.info(f"Data Ingestion Artifact: \n{data_ingestion_artifact}")
             return data_ingestion_artifact
         except Exception as e:
             raise BankingException(e, sys) from e
@@ -245,6 +247,6 @@ class DataIngestion:
         __del__ is a destructor method which is called as soon as all references 
         of the object are deleted i.e when an object is garbage collected.
         """
-        logging.info(f"{'='*20}Data Ingestion Log Completed.{'='*20}")
+        logging.info(f"{'='*60}Data Ingestion Log Completed.{'='*60}")
 
         
