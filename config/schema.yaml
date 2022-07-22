@@ -65,12 +65,12 @@ columns:
 
 
 target_column: credit_risk
-
+old_target_column: kredit
 
 continuous_column:
-  - age
-  - amount
-  - duration 
+  - alter
+  - hoehe
+  - laufzeit 
 
 
 domain_value:
