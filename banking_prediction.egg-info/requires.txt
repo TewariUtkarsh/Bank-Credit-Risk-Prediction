@@ -9,3 +9,5 @@ zipfile38
 evidently
 matplotlib
 seaborn
+dill
+imblearn
