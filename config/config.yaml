@@ -20,5 +20,12 @@ data_validation_config:
   report_file_name: report.json
   report_page_file_name: report.html
 
+# data transformation config
+data_transformation_config:
+  transformed_data_dir: transformed_data
+  transformed_train_dir: train
+  transformed_test_dir: test
+  preprocessed_model_dir: preprocessed_model
+  preprocessed_model_object_file_name: preprocessed_model.pkl
 
   
