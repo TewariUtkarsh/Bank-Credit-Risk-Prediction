@@ -16,4 +16,9 @@ DataValidationArtifact = namedtuple(
 )
 
 
+# Data Transformation Artifact
+DataTransformationArtifact = namedtuple(
+    "DataTransformationArtifact",
+    ["is_transformed", "message", "transformed_train_data_file_path", "transformed_test_data_file_path", "preprocessed_model_object_file_path"]
+)
 
