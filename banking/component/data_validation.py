@@ -168,6 +168,14 @@ class DataValidation:
         
 
     def generate_and_save_data_drift_report(self) -> List:
+        """
+        This function is responsible for generating and saving the data drift json report.
+
+        Returns
+        -------
+        list : list
+            Returns a list of the report file path and the json report generated.
+        """
         try:
             logging.info(f"Generating Data Drift Profile Report.")
             train_df, test_df = self.get_train_test_dataframe()
@@ -191,6 +199,14 @@ class DataValidation:
         
 
     def save_data_drift_report_page(self) -> str:
+        """
+        This function is responsible for generating and saving the data drift html report file.
+
+        Returns
+        -------
+        report_page_file_path : str
+            Returns a list of the html report file path.
+        """
         try:
             logging.info(f"Generating Data Drift Report Page.")
 
@@ -212,6 +228,14 @@ class DataValidation:
 
 
     def is_data_drift_present(self) -> List:
+        """
+        This function is responsible for validating if data drift is present in our dataset.
+
+        Returns
+        -------
+        List : list
+            Returns a list of validation status, json report file path and html report page file path.
+        """
         try:
             logging.info("Checking if Data Drift present in the Dataset.")
             is_present = False
@@ -232,6 +256,14 @@ class DataValidation:
     
 
     def initiate_data_validation(self) -> DataValidationArtifact:
+        """
+        This function is responsible for initiating the data validation phase in the
+        pipeline.
+        Returns:
+        --------
+        DataValidationArtifact : namedtuple
+            Named tuple consisting the artifact related details of Data Validation Phase.
+        """
         try:
             logging.info("Initiating the Data Validation Phase.")
             is_validated = self.is_train_test_file_exists()
