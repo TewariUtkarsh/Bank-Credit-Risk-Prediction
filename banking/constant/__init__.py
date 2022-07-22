@@ -57,12 +57,24 @@ DATA_VALIDATION_ARTIFACT_DIR = "data_validation"
 
 SCHEMA_COLUMN_NAME_KEY = "columns"
 SCHEMA_TARGET_COLUMN_KEY = "target_column"
+SCHEMA_OLD_TARGET_COLUMN_KEY = "old_target_column"
 SCHEMA_DOMAIN_VALUE_KEY = "domain_value"
+SCHEMA_CONTINUOUS_COLUMN_KEY = "continuous_column"
 
 DATA_DRIFT_KEY = "data_drift"
 DATA_DRIFT_DATA_KEY = "data"
 DATA_DRIFT_METRICS_KEY = "metrics"
 DATA_DRIFT_DATASET_DRIFT_KEY = "dataset_drift"
+
+
+# Data Transformation:
+DATA_TRANSFORMATION_CONFIG_KEY = "data_transformation_config"
+DATA_TRANSFORMATION_TRANSFORMED_DATA_DIR_KEY = "transformed_data_dir"
+DATA_TRANSFORMATION_TRANSFORMED_TRAIN_DIR_KEY = "transformed_train_dir"
+DATA_TRANSFORMATION_TRANSFORMED_TEST_DIR_KEY = "transformed_test_dir"
+DATA_TRANSFORMATION_PREPROCESSED_MODEL_DIR_KEY = "preprocessed_model_dir"
+DATA_TRANSFORMATION_PREPROCESSED_MODEL_OBJECT_FILE_NAME_KEY = "preprocessed_model_object_file_name"
+DATA_TRANSFORMATION_ARTIFACT_DIR = "data_transformation"
 
 
 
