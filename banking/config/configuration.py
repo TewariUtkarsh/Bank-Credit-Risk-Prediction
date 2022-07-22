@@ -1,4 +1,4 @@
-from banking.entity.config_entity import TrainingPipelineConfig, DataIngestionConfig, DataValidationConfig
+from banking.entity.config_entity import TrainingPipelineConfig, DataIngestionConfig, DataValidationConfig, DataTransformationConfig
 from banking.constant import *
 from banking.utils.util import read_yaml_data
 from banking.exception import BankingException
@@ -166,6 +166,54 @@ class Configuration:
             raise BankingException(e, sys) from e
 
         
+    def get_data_transformation_config(self) -> DataTransformationConfig:
+        """
+        This function is responsible for generating a named tuple for the
+        data transformation configuration.
+        Returns
+        -------
+        data_transformation_config : namedtuple
+            Named tuple for the data transformation configuration.
+        """
+        try:
+            logging.info(f"Extracting the Data Transformation Configuration.")
+            data_transformation_config_info = self.config_file_info[DATA_TRANSFORMATION_CONFIG_KEY]
+
+            data_transformation_artifact_dir = os.path.join(
+                self.training_pipeline_config.root_artifact_dir,
+                DATA_TRANSFORMATION_ARTIFACT_DIR,
+                self.current_time_stamp
+            )
+
+            transformed_train_dir = os.path.join(
+                data_transformation_artifact_dir,
+                data_transformation_config_info[DATA_TRANSFORMATION_TRANSFORMED_DATA_DIR_KEY],
+                data_transformation_config_info[DATA_TRANSFORMATION_TRANSFORMED_TRAIN_DIR_KEY]
+            )
+
+            transformed_test_dir = os.path.join(
+                data_transformation_artifact_dir,
+                data_transformation_config_info[DATA_TRANSFORMATION_TRANSFORMED_DATA_DIR_KEY],
+                data_transformation_config_info[DATA_TRANSFORMATION_TRANSFORMED_TEST_DIR_KEY]
+            )
+
+            preprocessed_model_object_file_path = os.path.join(
+                data_transformation_artifact_dir,
+                data_transformation_config_info[DATA_TRANSFORMATION_PREPROCESSED_MODEL_DIR_KEY],
+                data_transformation_config_info[DATA_TRANSFORMATION_PREPROCESSED_MODEL_OBJECT_FILE_NAME_KEY]
+            )
+
+            data_transformation_config = DataTransformationConfig(
+                transformed_train_dir=transformed_train_dir,
+                transformed_test_dir=transformed_test_dir,
+                preprocessed_model_object_file_path=preprocessed_model_object_file_path
+            )
+
+            logging.info(f"Data Transformation Configuration Extracted Successfully: \n{data_transformation_config}")
+            return data_transformation_config
+
+        except Exception as e:
+            raise BankingException(e, sys) from e
 
 
 
