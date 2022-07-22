@@ -3,6 +3,8 @@ from banking.logger import logging
 import yaml
 import os, sys
 import pandas as pd
+import numpy as np
+import dill
 
 
 def read_yaml_data(file_path:str) -> dict:
@@ -43,7 +45,112 @@ def save_df_to_csv(data: pd.DataFrame(), file_path:str) -> None:
         file_dir = os.path.dirname(file_path)
         os.makedirs(file_dir, exist_ok=True)
         data.to_csv(file_path, index=None)
-        logging.info(f"Saving DataFrame at: [{file_path}]")
+        logging.info(f"Saving pandas DataFrame to File: [{file_path}]")
     except Exception as e:
         raise BankingException(e,sys) from e
+
+def load_df_from_csv(file_path: str) -> pd.DataFrame:
+    """
+    This function is responsible for loading and return 
+    dataframe from the specified file path.
+    Parameters:
+    -----------
+    file_path : str
+        File path for which the DataFrame needs to be returned.
+    
+    Returns:
+    --------
+    df : pd.DataFrame
+        DataFrame extracted from the given file path.
+    """   
+    try:
+        if os.path.exists(file_path):
+            logging.info(f"Extracting DataFrame from file: [{file_path}]")
+            df = pd.read_csv(file_path)
+            return df
+        raise Exception(f"File: [{file_path}] does not exists.")
+    except Exception as e:
+        raise BankingException(e, sys) from e
+
+
+def save_numpy_array_to_file(data: np.array, file_path: str) -> None:
+    """
+    This function is responsible for saving the numpy array to
+    the desired location.
+    Parameters:
+    -----------
+    data : numpy.array()
+        numpy array to be saved.
+    file_path : str
+        File path for saving data.
+    """   
+    try:
+        os.makedirs(os.path.dirname(file_path), exist_ok=True)
+        np.save(file=file_path, arr=data)
+        logging.info(f"Saving numpy Array to File: [{file_path}]")
+    except Exception as e:
+        raise BankingException(e, sys) from e
+
+def load_numpy_array_from_file(file_path: str) -> np.array:
+    """
+    This function is responsible for loading the numpy array 
+    from the desired location.
+    Parameters:
+    -----------
+    file_path : str
+        File path from where the numpy array will be loaded.
+    """   
+    try:
+        os.makedirs(os.path.dirname(file_path), exist_ok=True)
+        numpy_arrary = np.load(file=file_path)
+        logging.info(f"Loading numpy Array from File: [{file_path}]")
+        return numpy_arrary
+    except Exception as e:
+        raise BankingException(e, sys) from e
+
+
+def save_model_object_to_file(model, file_path:str) -> None:
+    """
+    This function is responsible for saving the model object passed to
+    the desired location.
+    Parameters:
+    -----------
+    model:
+        Model object to be dumped/saved.
+    file_path : str
+        File path for dumping/saving model object.
+    """   
+    try:
+        os.makedirs(os.path.dirname(file_path), exist_ok=True)
+        with open(file_path, 'wb') as file_obj:
+            dill.dump(obj=model, file=file_obj)
+        logging.info(f"Saving model object to pickle file: [{file_path}]")
+    except Exception as e:
+        raise BankingException(e, sys) from e
+
+def load_model_object_from_file(file_path: str):
+    """
+    This function is responsible for loading and return 
+    model object from the specified file path.
+    Parameters:
+    -----------
+    file_path : str
+        File path for loading the model object.
+    
+    Returns:
+    --------
+    model_object: 
+        Model object loaded from the passed file path.
+    """ 
+    try:
+        if os.path.exists(file_path):
+            logging.info(f"Extracting DataFrame from file: [{file_path}]")
+            with open(file_path, 'rb') as file_obj:
+                model_object = dill.load(file_obj)
+                logging.info(f"Loading model object from File: [{file_path}]")
+                return model_object
+        raise Exception(f"File: [{file_path}] does not exists.")
+    except Exception as e:
+        raise BankingException(e, sys) from e
+
 
