@@ -15,6 +15,7 @@ banking/constant/__init__.py
 banking/entity/__init__.py
 banking/entity/artifact_entity.py
 banking/entity/config_entity.py
+banking/entity/model_factory.py
 banking/exception/__init__.py
 banking/logger/__init__.py
 banking/pipeline/__init__.py
