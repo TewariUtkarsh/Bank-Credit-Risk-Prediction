@@ -19,8 +19,8 @@ import json
 class DataValidation:
 
     def __init__(self, 
-        DataValidationConfig: DataValidationConfig,
-        DataIngestionArtifact: DataIngestionArtifact
+        data_validation_config: DataValidationConfig,
+        data_ingestion_artifact: DataIngestionArtifact
         ) -> None:
         """
         This class is responsible for initiating the Data Validation phase of the Pipeline.
@@ -40,8 +40,8 @@ class DataValidation:
         """        
         try:
             logging.info(f"{'='*60}Data Validation Log Started.{'='*60}")
-            self.data_validation_config = DataValidationConfig
-            self.data_ingestion_artifact = DataIngestionArtifact
+            self.data_validation_config = data_validation_config
+            self.data_ingestion_artifact = data_ingestion_artifact
         except Exception as e:
             raise BankingException(e, sys) from e
 
