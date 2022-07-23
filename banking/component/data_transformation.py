@@ -61,9 +61,9 @@ smote.fit_resample(x, y)
 class DataTransformation:
 
     def __init__(self, 
-        DataTransformationConfig: DataTransformationConfig,
-        DataIngestionArtifact: DataIngestionArtifact,
-        DataValidationArtifact: DataValidationArtifact
+        data_transformation_config: DataTransformationConfig,
+        data_ingestion_artifact: DataIngestionArtifact,
+        data_validation_artifact: DataValidationArtifact
         ) -> None:
         """
         This class is responsible for initiating the Data Transformation phase of the Pipeline.
@@ -88,9 +88,9 @@ class DataTransformation:
             Dictionary containing the information about the schema file.
         """   
         try:
-            self.data_transformation_config = DataTransformationConfig
-            self.data_ingestion_artifact = DataIngestionArtifact
-            self.data_validation_artifact = DataValidationArtifact
+            self.data_transformation_config = data_transformation_config
+            self.data_ingestion_artifact = data_ingestion_artifact
+            self.data_validation_artifact = data_validation_artifact
             self.schema_file_info = read_yaml_data(self.data_validation_artifact.schema_file_path)
         except Exception as e:
             raise BankingException(e, sys) from e
@@ -157,8 +157,8 @@ class DataTransformation:
             train_data_file_path = self.data_ingestion_artifact.train_data_file_path
             test_data_file_path = self.data_ingestion_artifact.test_data_file_path
 
-            train_data_file_name = os.path.basename(train_data_file_path).replace('.csv', 'npz')
-            test_data_file_name = os.path.basename(test_data_file_path).replace('.csv', 'npz')
+            train_data_file_name = os.path.basename(train_data_file_path).replace('.csv', '.npy')
+            test_data_file_name = os.path.basename(test_data_file_path).replace('.csv', '.npy')
 
             train_df = load_df_from_csv(file_path= train_data_file_path)
             train_df.rename(columns={self.schema_file_info[SCHEMA_OLD_TARGET_COLUMN_KEY]: self.schema_file_info[SCHEMA_TARGET_COLUMN_KEY]}, inplace=True)
