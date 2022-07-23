@@ -1,4 +1,7 @@
-from banking.entity.config_entity import TrainingPipelineConfig, DataIngestionConfig, DataValidationConfig, DataTransformationConfig
+from email.mime import base
+
+from tenacity import retry_unless_exception_type
+from banking.entity.config_entity import TrainingPipelineConfig, DataIngestionConfig, DataValidationConfig, DataTransformationConfig, ModelTrainerConfig, ModelEvalutaionConfig
 from banking.constant import *
 from banking.utils.util import read_yaml_data
 from banking.exception import BankingException
@@ -215,5 +218,48 @@ class Configuration:
         except Exception as e:
             raise BankingException(e, sys) from e
 
+
+    def get_model_trainer_config(self) -> ModelTrainerConfig:
+        """
+        This function is responsible for generating a named tuple for the
+        model trainer configuration.
+        Returns
+        -------
+        model_trainer_config : namedtuple
+            Named tuple for the model trainer configuration.
+        """
+        try:
+            logging.info(f"Extracting the Model Trainer Configuration.")
+            model_trainer_config_info = self.config_file_info[MODEL_TRAINER_CONFIG_KEY]
+
+            model_trainer_artifact_dir = os.path.join(
+                self.training_pipeline_config.root_artifact_dir,
+                MODEL_TRAINER_ARTIFACT_DIR,
+                self.current_time_stamp
+            )
+
+            trained_model_file_path = os.path.join(
+                model_trainer_artifact_dir,
+                model_trainer_config_info[MODEL_TRAINER_TRAINED_MODEL_DIR_KEY],
+                model_trainer_config_info[MODEL_TRAINER_TRAINED_MODEL_FILE_NAME_KEY]
+            )
+
+            base_accuracy = model_trainer_config_info[MODEL_TRAINER_BASE_ACCURACY_KEY]
+
+            model_config_file_path = os.path.join(
+                model_trainer_config_info[MODEL_TRAINER_MODEL_CONFIG_DIR_KEY],
+                model_trainer_config_info[MODEL_TRAINER_MODEL_CONFIG_FILE_NAME_KEY]
+            )
+
+            model_trainer_config = ModelTrainerConfig(
+                trained_model_file_path=trained_model_file_path,
+                base_accuracy=base_accuracy,
+                model_config_file_path=model_config_file_path
+            )
+            
+            logging.info(f"Model Trainer Configuration: [{model_trainer_config}].")
+            return model_trainer_config
+        except Exception as e:
+            raise BankingException(e, sys) from e
 
 
