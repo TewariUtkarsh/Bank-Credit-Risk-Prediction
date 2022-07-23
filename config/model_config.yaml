@@ -1,0 +1,28 @@
+grid_search:
+  class: GridSearchCV
+  module: sklearn.model_selection
+  params:
+    cv: 7
+    verbose: 2
+
+model_selection:
+  model_0:
+    class: LogisticRegression
+    module: sklearn.linear_model
+    params:
+      solver: liblinear
+    grid_search_params:
+      fit_intercept:
+        - true
+        - false
+
+  model_1:
+    class: RandomForestClassifier
+    module: sklearn.ensemble
+    params:
+      criterion: 'gini'
+      min_samples_leaf: 2
+    grid_search_params:
+      min_samples_leaf:
+      - 4
+  
