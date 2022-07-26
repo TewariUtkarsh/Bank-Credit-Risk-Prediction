@@ -1,3 +1,4 @@
+from tkinter import E
 from banking.exception import BankingException
 from banking.logger import logging
 import yaml
@@ -5,6 +6,7 @@ import os, sys
 import pandas as pd
 import numpy as np
 import dill
+import shutil
 
 
 def read_yaml_data(file_path:str) -> dict:
@@ -28,6 +30,24 @@ def read_yaml_data(file_path:str) -> dict:
             return yaml_file_data
     except Exception as e:
         raise BankingException(e, sys) from e
+
+def write_yaml_data(file_path: str, data:dict = None) -> None:
+    """
+    This function is responsible for writing the data content passed
+    to the YAML file for which the path is specified.
+    Parameters
+    ----------
+    file_path : str
+        File path for the YAML file.
+    data : dict, By default: None
+        Data to be written in the YAML file.
+    """    
+    try: 
+        os.makedirs(os.path.dirname(file_path), exist_ok=True)
+        with open(file_path, 'w') as file_object:
+            yaml.dump(data,file_object)
+    except Exception as e:
+        raise BankingException(e, sys) from e    
 
     
 def save_df_to_csv(data: pd.DataFrame(), file_path:str) -> None:
@@ -144,7 +164,7 @@ def load_model_object_from_file(file_path: str):
     """ 
     try:
         if os.path.exists(file_path):
-            logging.info(f"Extracting DataFrame from file: [{file_path}]")
+            logging.info(f"Extracting model object from file: [{file_path}]")
             with open(file_path, 'rb') as file_obj:
                 model_object = dill.load(file_obj)
                 logging.info(f"Loading model object from File: [{file_path}]")
@@ -153,4 +173,35 @@ def load_model_object_from_file(file_path: str):
     except Exception as e:
         raise BankingException(e, sys) from e
 
+
+def del_existing_dir(directory:str, threshold:int=None):
+    """
+    This function is responsible deling the directory specified if it exists.
+    Parameters:
+    -----------
+    directory: str
+        Path for the directory to be deleted.
+    threshold : str, by default=None
+        Number of files to be kept in the directory
+    """ 
+    try:
+        if os.path.exists(directory):
+            files = os.listdir(directory)
+            num_of_files_present = len(files)
+                
+            if threshold is not None:
+                num_of_files_to_be_deleted = num_of_files_present - threshold
+
+                for idx,file in zip(range(num_of_files_to_be_deleted), files):
+                    os.remove(os.path.join(directory, file))
+            else:
+                for file in files:
+                    os.remove(os.path.join(directory, file))
+                    
+            shutil.rmtree(directory)
+
+            
+
+    except Exception as e:
+        raise BankingException(e,sys) from e
 
