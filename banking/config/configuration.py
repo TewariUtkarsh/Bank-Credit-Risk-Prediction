@@ -1,12 +1,10 @@
-from email.mime import base
-
-from tenacity import retry_unless_exception_type
-from banking.entity.config_entity import TrainingPipelineConfig, DataIngestionConfig, DataValidationConfig, DataTransformationConfig, ModelTrainerConfig, ModelEvalutaionConfig
+from banking.entity.config_entity import TrainingPipelineConfig, DataIngestionConfig, DataValidationConfig, DataTransformationConfig, ModelTrainerConfig, ModelEvalutaionConfig, ModelPusherConfig
 from banking.constant import *
 from banking.utils.util import read_yaml_data
 from banking.exception import BankingException
 from banking.logger import logging
 import os, sys
+from datetime import datetime
 
 
 class Configuration:
@@ -43,7 +41,7 @@ class Configuration:
         except Exception as e:
             raise BankingException(e, sys) from e
 
-    
+
     def get_training_pipeline_config(self) -> TrainingPipelineConfig:
         """
         This function is responsible for generating a named tuple for the
@@ -262,4 +260,76 @@ class Configuration:
         except Exception as e:
             raise BankingException(e, sys) from e
 
+
+    def get_model_evaluation_config(self) -> ModelEvalutaionConfig:
+        """
+        This function is responsible for generating a named tuple for the
+        model evaluation configuration.
+        Returns
+        -------
+        model_evaluation_config : namedtuple(ModelEvalutaionConfig)
+            Named tuple for the model evaluation configuration.
+        """
+        try:
+            logging.info(f"Extracting the Model Evaluation Configuration.")
+            model_evaluation_config_info = self.config_file_info[MODEL_EVALUATION_CONFIG_KEY]
+
+            # We are not creating a time stamp folder as
+            # this model evaluation report is globally accessed and should be
+            # up to date with the latest model details.
+            # Also older models' details are already stored under the history key
+            model_evaluation_artifact_dir = os.path.join(
+                self.training_pipeline_config.root_artifact_dir,
+                MODEL_EVALUATION_ARTIFACT_DIR
+            )
+
+            model_evaluation_report_file_path = os.path.join(
+                model_evaluation_artifact_dir,
+                model_evaluation_config_info[MODEL_EVALUATION_MODEL_EVALUATION_REPORT_FILE_NAME_KEY]
+            )
+
+            # We need the current time stamp as if we have to update the 
+            # model_evaluation_report_file to add a model to the history path
+            # then we will add a new key that is history and the time stamp 
+            # at which the model was trained
+            current_time_stamp = self.current_time_stamp
+
+            model_evaluation_config = ModelEvalutaionConfig(
+                model_evaluation_report_file_path=model_evaluation_report_file_path,
+                current_time_stamp=current_time_stamp
+            )
+            logging.info(f"Model Evaluation Configuration: [{model_evaluation_config}].")
+            return model_evaluation_config
+        except Exception as e:
+            raise BankingException(e, sys) from e
+            
+    
+    def get_model_pusher_config(self) ->ModelPusherConfig:
+        """
+        This function is responsible for generating a named tuple for the
+        model pusher configuration.
+        Returns
+        -------
+        model_pusher_config : namedtuple(ModelPusherConfig)
+            Named tuple for the model pusher configuration.
+        """
+        try:
+            logging.info(f"Extracting the Model Pusher Configuration.")
+            model_pusher_config_info = self.config_file_info[MODEL_PUSHER_CONFIG_KEY]
+            
+            current_time_stamp = f"{datetime.now().strftime('%Y%m%d%H%M%S')}"
+
+            export_model_dir = os.path.join(
+                ROOT_DIR,
+                model_pusher_config_info[MODEL_PUSHER_EXPORT_MODEL_DIR_KEY],
+                current_time_stamp
+            )
+
+            model_pusher_config = ModelPusherConfig(
+                export_model_dir=export_model_dir
+            )
+            logging.info(f"Model Pusher Configuration: [{model_pusher_config}].")
+            return model_pusher_config
+        except Exception as e:
+            raise BankingException(e, sys) from e
 
