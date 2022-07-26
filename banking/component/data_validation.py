@@ -1,4 +1,3 @@
-from re import S
 from banking.exception import BankingException
 from banking.logger import logging
 import os, sys
@@ -85,7 +84,7 @@ class DataValidation:
             List consisting of Training and Testing Dataframes
         """ 
         try: 
-            logging.info("Loading DataFrames from the Training and Testing Files.")
+            logging.info("Loading DataFrames for the Training and Testing Files.")
             train_df = pd.read_csv(self.data_ingestion_artifact.train_data_file_path)
             test_df = pd.read_csv(self.data_ingestion_artifact.test_data_file_path)
             return [train_df, test_df]
@@ -265,12 +264,10 @@ class DataValidation:
             Named tuple consisting the artifact related details of Data Validation Phase.
         """
         try:
-            logging.info("Initiating the Data Validation Phase.")
             is_validated = self.is_train_test_file_exists()
             is_validated = self.validate_schema_structure()
             is_validated, report_file_path, report_page_file_path = self.is_data_drift_present()
             
-            logging.info(f"Data Validation Phase Completed Successfully.")
             message = f"Data Validation Phase Completed."
             
             data_validation_artifact = DataValidationArtifact(
@@ -288,4 +285,7 @@ class DataValidation:
 
 
     def __del__(self) -> None:
-        logging.info(f"{'='*60}Data Validation Log Completed.{'='*60}")
+        try:
+            logging.info(f"{'='*60}Data Validation Log Completed.{'='*60}\n\n")
+        except Exception as e:
+            raise BankingException(e, sys) from e
