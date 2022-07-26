@@ -1,4 +1,4 @@
-from banking.constant import DATA_INGESTION_INGESTED_DATA_DIR_KEY, DATA_INGESTION_INGESTED_TEST_DIR_KEY, DATA_INGESTION_INGESTED_TRAIN_DIR_KEY
+from banking.constant import *
 from banking.entity.config_entity import DataIngestionConfig
 from banking.entity.artifact_entity import DataIngestionArtifact
 from banking.exception import BankingException
@@ -10,6 +10,7 @@ from typing import List
 from zipfile import ZipFile
 from six.moves import urllib
 from sklearn.model_selection import StratifiedShuffleSplit
+
 
 class DataIngestion:
 
@@ -96,7 +97,7 @@ class DataIngestion:
                         extracted_data_dir,
                         file
                     )
-                    logging.info(f"Extracted Data File Generated: [{extracted_raw_file_path}]")
+                    logging.info(f"Extracted Data File Generated at: [{extracted_raw_file_path}]")
                     return extracted_raw_file_path
         except Exception as e:
             raise BankingException(e, sys) from e
@@ -117,7 +118,8 @@ class DataIngestion:
         try: 
             raw_data_dir = self.data_ingestion_config.raw_data_dir
             os.makedirs(raw_data_dir, exist_ok=True)
-
+            
+            logging.info(f"Loading Extracted Raw Data: [{extracted_raw_file_path}] to Usable Raw Data: [{raw_data_file_path}]")
             with open(extracted_raw_file_path, 'r') as raw_file_obj:
                 columns = raw_file_obj.readline()[:-1].split(' ')
                 data = []
@@ -221,7 +223,6 @@ class DataIngestion:
             Named tuple consisting the artifact related details of Data Ingestion Phase.
         """
         try:
-            logging.info("Initiating the Data Ingestion Phase.")
             zip_file_path = self.download_banking_data()
             extracted_raw_file_path = self.extract_zip_file(zip_file_path=zip_file_path)
             raw_data_file_path = self.get_raw_data_from_extracted_file(extracted_raw_file_path=extracted_raw_file_path)
@@ -247,6 +248,9 @@ class DataIngestion:
         __del__ is a destructor method which is called as soon as all references 
         of the object are deleted i.e when an object is garbage collected.
         """
-        logging.info(f"{'='*60}Data Ingestion Log Completed.{'='*60}")
+        try:
+            logging.info(f"{'='*60}Data Ingestion Log Completed.{'='*60}\n\n")
+        except Exception as e:
+            raise BankingException(e, sys) from e
 
         
