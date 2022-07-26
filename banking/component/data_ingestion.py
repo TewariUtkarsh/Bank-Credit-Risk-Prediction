@@ -119,7 +119,7 @@ class DataIngestion:
             raw_data_dir = self.data_ingestion_config.raw_data_dir
             os.makedirs(raw_data_dir, exist_ok=True)
             
-            logging.info(f"Loading Extracted Raw Data: [{extracted_raw_file_path}] to Usable Raw Data: [{raw_data_file_path}]")
+            logging.info(f"Loading Extracted Raw Data: [{extracted_raw_file_path}] to Usable Raw Data]")
             with open(extracted_raw_file_path, 'r') as raw_file_obj:
                 columns = raw_file_obj.readline()[:-1].split(' ')
                 data = []
