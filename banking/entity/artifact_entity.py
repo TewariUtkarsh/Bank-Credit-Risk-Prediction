@@ -31,3 +31,10 @@ ModelTrainerArtifact = namedtuple(
 )
 
 
+# Model Evaluation Artifact
+ModelEvaluationArtifact = namedtuple(
+    "ModelEvaluationArtifact",
+    ["is_trained_model_accepted", "message", "evaluated_model_file_path"]
+)                                                
+                                            
+
