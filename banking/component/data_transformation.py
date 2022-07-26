@@ -20,6 +20,7 @@ class FeatureEngineering(BaseEstimator, TransformerMixin):
 
     def __init__(self, schema_file_info:dict) -> None:
         try:
+            logging.info(f"{'='*60}Data Transformation Log Started.{'='*60}")
             self.schema_file_info = schema_file_info
         except Exception as e:
             raise BankingException(e, sys) from e
@@ -32,17 +33,26 @@ class FeatureEngineering(BaseEstimator, TransformerMixin):
 
     def transform(self, X, y=None):
         try:
-            schema_file_column = self.schema_file_info[SCHEMA_COLUMN_NAME_KEY]
-            new_x = pd.DataFrame(X.copy())
-            for column in schema_file_column:
-                new_column_name = schema_file_column[column][0]
-                new_column_dtype = schema_file_column[column][1]
-                
-                new_x.rename(columns={column: new_column_name}, inplace=True)
-                new_x.astype(new_column_dtype)
-            return new_x
+            if type(X)==np.array:
+                schema_file_column = self.schema_file_info[SCHEMA_COLUMN_NAME_KEY]
+                new_x = pd.DataFrame(X.copy())
+                for column in schema_file_column:
+                    new_column_name = schema_file_column[column][0]
+                    new_column_dtype = schema_file_column[column][1]
+                    
+                    new_x.rename(columns={column: new_column_name}, inplace=True)
+                    new_x.astype(new_column_dtype)
+                return new_x
+            return X
         except Exception as e:
             raise BankingException(e, sys) from e
+
+    def __str__(self) -> str:
+        try:
+            return f"FeatureEngineering()"
+        except Exception as e:
+            raise BankingException(e, sys) from e
+
 """
 x = data.drop(columns=[target_column])
 y = data[target_column]
@@ -106,6 +116,7 @@ class DataTransformation:
             ColumnTransformer model object containing both numerical and categorical pipelines.
         """ 
         try:
+            logging.info("Acquiring preprocessing model object.")
             numerical_columns = self.schema_file_info[SCHEMA_CONTINUOUS_COLUMN_KEY]
             target_column = self.schema_file_info[SCHEMA_OLD_TARGET_COLUMN_KEY]
             categorical_columns = [column for column in self.schema_file_info[SCHEMA_DOMAIN_VALUE_KEY] if column!=target_column]
@@ -139,6 +150,7 @@ class DataTransformation:
                 ]
             )
 
+            logging.info(f"Preprocessing model object acquired successfully: [{preprocessed_model_object}]")
             return preprocessed_model_object
         except Exception as e:
             raise BankingException(e, sys) from e    
@@ -160,6 +172,8 @@ class DataTransformation:
             train_data_file_name = os.path.basename(train_data_file_path).replace('.csv', '.npy')
             test_data_file_name = os.path.basename(test_data_file_path).replace('.csv', '.npy')
 
+            logging.info("Loading Training and Testing Data as DataFrames")
+
             train_df = load_df_from_csv(file_path= train_data_file_path)
             train_df.rename(columns={self.schema_file_info[SCHEMA_OLD_TARGET_COLUMN_KEY]: self.schema_file_info[SCHEMA_TARGET_COLUMN_KEY]}, inplace=True)
 
@@ -173,6 +187,7 @@ class DataTransformation:
 
             test_df_features = test_df.drop([label_column], axis=1)
             test_df_label = test_df[label_column]   # np.array()
+
 
             preprocessed_model_object = self.get_preprocessed_model_object()
             
@@ -196,9 +211,12 @@ class DataTransformation:
                     transformed_test_dir,
                     test_data_file_name
             )
+            logging.info(f"Saving Transformed Training and Testing Data Files")
             save_numpy_array_to_file(data=transformed_train_df, file_path=transformed_train_data_file_path)
             save_numpy_array_to_file(data=transformed_test_df, file_path=transformed_test_data_file_path)
 
+
+            logging.info(f"Saving Preprocessed Model Object.")
             preprocessed_model_object_file_path = self.data_transformation_config.preprocessed_model_object_file_path
             save_model_object_to_file(model=preprocessed_model_object, file_path=preprocessed_model_object_file_path)
 
@@ -212,11 +230,14 @@ class DataTransformation:
                 transformed_test_data_file_path=transformed_test_data_file_path,
                 preprocessed_model_object_file_path=preprocessed_model_object_file_path
             )
-            
+            logging.info(f"Data Transformation Artifact: [{data_transformation_artifact}]")
             return data_transformation_artifact
         except Exception as e:
             raise BankingException(e, sys) from e
 
 
     def __del__(self) -> None:
-        logging.info(f"{'='*60}Data Transformation Log Completed.{'='*60}")
+        try: 
+            logging.info(f"{'='*60}Data Transformation Log Completed.{'='*60}\n\n")
+        except Exception as e:
+            raise BankingException(e, sys) from e
