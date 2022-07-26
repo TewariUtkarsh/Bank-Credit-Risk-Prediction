@@ -36,3 +36,10 @@ ModelTrainerConfig = namedtuple(
 )
 
 
+# Model Evaluation Config
+ModelEvalutaionConfig = namedtuple(
+    "ModelEvalutaionConfig",
+    ["model_evaluation_report_file_path", "current_time_stamp"]
+)
+
+
