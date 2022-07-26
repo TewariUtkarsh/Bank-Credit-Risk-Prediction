@@ -87,3 +87,11 @@ MODEL_TRAINER_MODEL_CONFIG_FILE_NAME_KEY = "model_config_file_name"
 MODEL_TRAINER_ARTIFACT_DIR = "model_trainer"
 
 
+# Model Evaluation:
+MODEL_EVALUATION_CONFIG_KEY = "model_evaluation_config"
+MODEL_EVALUATION_MODEL_EVALUATION_REPORT_FILE_NAME_KEY = "model_evaluation_report_file_name"
+MODEL_EVALUATION_ARTIFACT_DIR = "model_evaluation"
+BEST_MODEL_KEY = "best_model"
+FILE_PATH_KEY = "file_path"
+HISTORY_KEY = "history"
+
