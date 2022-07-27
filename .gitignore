@@ -133,6 +133,7 @@ testing/
 logs/
 env_test.py
 banking/artifact
+banking_prediction.egg-info/
 
 
 
