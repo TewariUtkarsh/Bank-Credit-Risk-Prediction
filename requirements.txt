@@ -1,4 +1,5 @@
 # -e. triggers or initiates the run for setup.py
+scipy
 numpy
 flask
 flask_cors
