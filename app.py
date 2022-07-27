@@ -12,7 +12,7 @@ from banking.entity.banking_predictor import BankingPredictor, BankingData
 
 
 
-# Constants
+# ENV VAR: Constants
 PORT = os.getenv('$PORT', 5000)
 ROOT_DIR = os.getcwd()
 
@@ -34,6 +34,17 @@ CREDIT_RISK_KEY = "credit_risk"
 
 app = Flask(__name__)
 CORS(app)
+
+
+
+@app.route('/', methods=['GET', 'POST'])
+@cross_origin()
+def index():
+    try:
+        return render_template('index.html')
+    except Exception as e:
+        raise BankingException(e, sys) from e
+
 
 
 @app.route('/artifact', defaults={'req_path': 'banking'})
@@ -70,14 +81,6 @@ def render_artifact_dir(req_path):
     }
     return render_template('files.html', result=result)
 
-
-@app.route('/', methods=['GET', 'POST'])
-@cross_origin()
-def index():
-    try:
-        return render_template('index.html')
-    except Exception as e:
-        raise BankingException(e, sys) from e
 
 
 @app.route('/view_experiment_hist', methods=['GET', 'POST'])
@@ -225,7 +228,9 @@ def render_log_dir(req_path):
     # Joining the base and the requested path
     logging.info(f"req_path: {req_path}")
     abs_path = os.path.join(req_path)
+    print(req_path)
     print(abs_path)
+    print(os.path.isfile(abs_path))
     # Return 404 if path doesn't exist
     if not os.path.exists(abs_path):
         return abort(404)
