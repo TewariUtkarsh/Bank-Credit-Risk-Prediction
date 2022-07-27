@@ -1,4 +1,3 @@
-from xml.etree.ElementTree import PI
 from flask import Flask
 from flask_cors import cross_origin, CORS
 import os, sys
@@ -9,6 +8,7 @@ from banking.exception import BankingException
 from banking.component.data_ingestion import DataIngestion
 from banking.config.configuration import Configuration
 from banking.pipeline.pipeline import Pipeline
+from banking.utils.util import del_existing_dir
 
 app = Flask(__name__)
 CORS(app)
@@ -27,6 +27,10 @@ if __name__=='__main__':
     try:
         p = Pipeline()
         p.run_pipeline()
+        print(p.display_experiment())
+        pass
     except Exception as e:
         banking = BankingException(e, sys)
         logging.info(banking)
+
+    # del_existing_dir(directory='logs')
