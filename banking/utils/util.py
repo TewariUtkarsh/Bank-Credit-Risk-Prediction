@@ -1,4 +1,3 @@
-from tkinter import E
 from banking.exception import BankingException
 from banking.logger import logging
 import yaml
@@ -205,3 +204,22 @@ def del_existing_dir(directory:str, threshold:int=None):
     except Exception as e:
         raise BankingException(e,sys) from e
 
+def get_np_array_for_df(df:pd.DataFrame) -> np.array:
+    """
+    This function is responsible for transforming the 
+    passed pandas DataFrame into numpy array.
+    Parameters:
+    -----------
+    df : pd.DataFrame
+        DataFrame to be transformed into numpy array.
+    
+    Returns:
+    --------
+    arr : np.array
+        Transformed Array generated for the DataFrame passed
+    """ 
+    try:
+        arr = np.array(df)
+        return arr
+    except Exception as e:
+        raise BankingException(e, sys) from e
