@@ -1,4 +1,3 @@
-from numpy import meshgrid
 from banking.logger import logging
 from banking.exception import BankingException
 from banking.entity.config_entity import ModelEvalutaionConfig
