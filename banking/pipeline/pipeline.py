@@ -102,7 +102,19 @@ class Pipeline(Thread):
         except Exception as e:
             raise BankingException(e, sys) from e
 
-    
+    def start_model_pusher(self,
+            model_evaluation_artifact: ModelEvaluationArtifact
+        ) -> ModelPusherArtifact:
+        try:
+            model_pusher = ModelPusher(
+                            model_pusher_config= self.config.get_model_pusher_config(),
+                            model_evaluation_artifact=model_evaluation_artifact
+                        )
+            model_pusher_artifact = model_pusher.initiate_model_pusher()
+            return model_pusher_artifact
+        except Exception as e:
+            raise BankingException(e, sys) from e
+
 
     def run_pipeline(self):
         try:
@@ -185,4 +197,59 @@ class Pipeline(Thread):
             
         except Exception as e:
             raise BankingException(e,sys) from e
+
+    def run(self):
+        try:
+            self.run_pipeline()
+        except Exception as e:
+            raise BankingException(e, sys) from e
+
+    @classmethod
+    def save_experiment(cls):
+        try:
+            experiment = Pipeline.experiment
+            experiment_file_path = Pipeline.experiment_file_path
+            
+            ord_experiment_dict = experiment._asdict()
+            experiment_dict = {key:[value] for key,value in ord_experiment_dict.items() }
+
+            experiment_dict.update(
+                {
+                    "created_time_stamp": f"{datetime.now().strftime('%Y-%m-%d-%H-%M-%S')}",
+                    "experiment_file_path": [os.path.basename(experiment_file_path)]
+                }
+            )
+
+            experiment_df = pd.DataFrame(experiment_dict)
+
+            if os.path.exists(experiment_file_path):
+                experiment_df.to_csv(experiment_file_path, index=False, header=False, mode="a")
+            else:
+                os.makedirs(os.path.dirname(experiment_file_path), exist_ok=True)
+                experiment_df.to_csv(experiment_file_path, index=False, header=True, mode='w')
+            
+            # Creating html file
+            experiment_df.to_html(r"banking\artifact\experiment\experiment.html") 
+
+            exp = Pipeline.display_experiment()
+            logging.info(exp)
+
+        except Exception as e:
+            raise BankingException(e, sys) from e
+
+    @classmethod
+    def display_experiment(cls, thresh:None=6) -> pd.DataFrame:
+        try:
+            experiment_file_path:str = Pipeline.experiment_file_path
+
+            if os.path.exists(experiment_file_path):
+                experiment_df = pd.read_csv(experiment_file_path)
+
+                limit = -1 * int(thresh)
+                
+                return experiment_df[limit:].drop(columns=["experiment_file_path", "initialized_time_stamp"])
+
+            return pd.DataFrame()
+        except Exception as e:
+            raise BankingException(e, sys) from e
 
