@@ -12,7 +12,6 @@ from sklearn.compose import ColumnTransformer
 from sklearn.base import BaseEstimator, TransformerMixin
 from sklearn.impute import SimpleImputer
 from sklearn.preprocessing import StandardScaler
-from imblearn.over_sampling import SMOTE
 
 
 
@@ -33,7 +32,7 @@ class FeatureEngineering(BaseEstimator, TransformerMixin):
 
     def transform(self, X, y=None):
         try:
-            if type(X)==np.array:
+            """if type(X)==np.array:
                 schema_file_column = self.schema_file_info[SCHEMA_COLUMN_NAME_KEY]
                 new_x = pd.DataFrame(X.copy())
                 for column in schema_file_column:
@@ -43,7 +42,35 @@ class FeatureEngineering(BaseEstimator, TransformerMixin):
                     new_x.rename(columns={column: new_column_name}, inplace=True)
                     new_x.astype(new_column_dtype)
                 return new_x
-            return X
+            return X"""
+            schema_column_names = self.schema_file_info[SCHEMA_COLUMN_NAME_KEY]
+            # raise Exception(f"{X}\n{type(X)}")
+            if type(X)==pd.DataFrame:
+                X_columns = list(X.columns)
+                for column in schema_column_names:
+                    if column in X_columns:
+                        new_dtype = schema_column_names[column][1]
+                        X[column].astype(new_dtype)
+                return X
+            elif type(X)==np.ndarray:
+                return X
+            else:
+                raise Exception("Invalid Input!!")
+            # return X
+            
+            # schema_file_column = self.schema_file_info[SCHEMA_COLUMN_NAME_KEY]
+            # if type(X)==np.array:
+            #     new_x = pd.DataFrame(X)
+            #     for column in schema_file_column:
+            #         if column in list(new_x.columns):
+            #             print(column, list(new_x.columns))
+            #             new_column_name = schema_file_column[column][0]
+            #             new_column_dtype = schema_file_column[column][1]
+                    
+            #             new_x.rename(columns={column: new_column_name}, inplace=True)
+            #             new_x.astype(new_column_dtype)
+            # return new_x
+            
         except Exception as e:
             raise BankingException(e, sys) from e
 
@@ -118,8 +145,9 @@ class DataTransformation:
         try:
             logging.info("Acquiring preprocessing model object.")
             numerical_columns = self.schema_file_info[SCHEMA_CONTINUOUS_COLUMN_KEY]
-            target_column = self.schema_file_info[SCHEMA_OLD_TARGET_COLUMN_KEY]
-            categorical_columns = [column for column in self.schema_file_info[SCHEMA_DOMAIN_VALUE_KEY] if column!=target_column]
+            old_target_column = self.schema_file_info[SCHEMA_OLD_TARGET_COLUMN_KEY]
+            target_column = self.schema_file_info[SCHEMA_TARGET_COLUMN_KEY]
+            categorical_columns = [column for column in self.schema_file_info[SCHEMA_DOMAIN_VALUE_KEY] if column!=target_column and column!=old_target_column]
 
             numerical_pipeline = Pipeline(
                 steps=[
