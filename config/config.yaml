@@ -1,3 +1,4 @@
+
 # training pipline config:
 training_pipeline_config:
   pipeline_name: banking
@@ -37,3 +38,18 @@ model_trainer_config:
   model_config_dir: config
   model_config_file_name: model_config.yaml
 
+
+# model evaluation config
+model_evaluation_config:
+  model_evaluation_report_file_name: "model_evaluation_report.yaml"
+
+
+# model pusher config
+model_pusher_config:
+  export_model_dir: saved_models
+# experiment config:
+experiment_config:
+  experiment_dir: 'experiment'
+  experiment_file_name: 'experiment.csv'
+
+  
