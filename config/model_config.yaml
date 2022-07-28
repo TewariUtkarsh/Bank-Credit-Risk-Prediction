@@ -4,25 +4,25 @@ grid_search:
   params:
     cv: 7
     verbose: 2
-
 model_selection:
   model_0:
     class: LogisticRegression
+    grid_search_params:
+      fit_intercept:
+      - true
+      - false
+    model_1:
+      class: RandomForestClassifier
+      grid_search_params:
+        criterion:
+        - gini
+        - entropy
+        min_sample_leaf:
+        - 1
+        - 2
+      module: sklearn.ensemble
+      params:
+        min_sample_leaf: 2
     module: sklearn.linear_model
     params:
       solver: liblinear
-    grid_search_params:
-      fit_intercept:
-        - true
-        - false
-
-  model_1:
-    class: RandomForestClassifier
-    module: sklearn.ensemble
-    params:
-      criterion: 'gini'
-      min_samples_leaf: 2
-    grid_search_params:
-      min_samples_leaf:
-      - 4
-  
