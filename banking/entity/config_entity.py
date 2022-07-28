@@ -43,3 +43,16 @@ ModelEvalutaionConfig = namedtuple(
 )
 
 
+# Model Pusher Config
+ModelPusherConfig = namedtuple(
+    "ModelPusherConfig",
+    ["export_model_dir"]
+)
+
+# Experiment Entity
+Experiment = namedtuple(
+    "Experiment",
+    ["experiment_id", "running_status", "experiment_file_path", "initialized_time_stamp", "artifact_time_stamp",
+     "start_time", "stop_time", "execution_time", "accuracy", "is_trained_model_accepted", "message"]
+)
+
