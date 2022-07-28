@@ -35,7 +35,7 @@ logging.basicConfig(
 
 
 # Get Logs Dataframe
-def get_logs_dataframe() -> pd.DataFrame:
+def get_logs_dataframe(log_file_path:str=LOGGING_FILEPATH) -> pd.DataFrame:
     """
     This function is responsible for returning the dataframe for the
     log file.
