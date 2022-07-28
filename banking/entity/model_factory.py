@@ -75,7 +75,7 @@ class ModelFactory:
             self.model_config_file_info = dict(read_yaml_data(file_path=model_config_file_path))
             self.grid_search_class = self.model_config_file_info[GRID_SEARCH_KEY][CLASS_KEY]
             self.grid_search_module = self.model_config_file_info[GRID_SEARCH_KEY][MODULE_KEY]
-            self.grid_search_param = self.model_config_file_info[GRID_SEARCH_KEY][PARAMS_KEY]
+            self.grid_search_params = self.model_config_file_info[GRID_SEARCH_KEY][PARAMS_KEY]
             self.model_selection_info = dict(self.model_config_file_info[MODEL_SELECTION_KEY])
             
             self.initialized_model_list = []
@@ -246,7 +246,7 @@ class ModelFactory:
             
             grid_search_object = ModelFactory.update_object_property(model_object=grid_search_object, params=self.grid_search_params)
 
-            message = f'{">>"* 30} f"Training {type(initialized_model.model).__name__} Started." {"<<"*30}'
+            message = f'{">>"* 30} f"Training {type(initialized_model.model_object).__name__} Started." {"<<"*30}'
             logging.info(message)
             
             grid_search_object.fit(X_train, y_train)
