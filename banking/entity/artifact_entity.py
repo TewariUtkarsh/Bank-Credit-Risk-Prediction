@@ -38,3 +38,8 @@ ModelEvaluationArtifact = namedtuple(
 )                                                
                                             
 
+# Model Pusher Artifact
+ModelPusherArtifact = namedtuple(
+    "ModelPusherArtifact",
+    ["export_model_file_path"]
+)                                            
