@@ -2,11 +2,10 @@ from banking.logger import logging
 from banking.exception import BankingException
 from banking.entity.config_entity import ModelTrainerConfig
 from banking.entity.artifact_entity import DataTransformationArtifact, ModelTrainerArtifact
-from banking.utils.util import load_numpy_array_from_file, load_model_object_from_file, save_model_object_to_file
+from banking.utils.util import load_numpy_array_from_file, load_model_object_from_file, save_model_object_to_file, get_np_array_for_df
 from banking.entity.model_factory import GridSearchedModel, MetricsInfoArtifact, ModelFactory
 import os, sys
 from imblearn.over_sampling import SMOTE
-import numpy as np
 from typing import List
 
 
@@ -20,8 +19,9 @@ class BankingEstimator:
         self.trained_model_object = trained_model_object
         self.preprocessed_model_object = preprocessed_model_object
 
-    def predict(self, X:np.array):
+    def predict(self, X):
         X_transformed = self.preprocessed_model_object.transform(X)
+        # X_transformed = np.ndarray(X_transformed)
         return self.trained_model_object.predict(X_transformed)
 
     def __repr__(self) -> str:
@@ -98,6 +98,11 @@ class ModelTrainer:
             X_train, y_train = smote.fit_resample(train_arr_features, train_arr_labels)
             X_test, y_test = smote.fit_resample(test_arr_features, test_arr_labels)
 
+            X_train = get_np_array_for_df(X_train)
+            X_test = get_np_array_for_df(X_test)
+            y_train = get_np_array_for_df(y_train)
+            y_test = get_np_array_for_df(y_test)
+            
             # Model Building:
             model_factory = ModelFactory(model_config_file_path=model_config_file_path)
 
