@@ -95,3 +95,35 @@ BEST_MODEL_KEY = "best_model"
 FILE_PATH_KEY = "file_path"
 HISTORY_KEY = "history"
 
+
+# Model Pusher:
+MODEL_PUSHER_CONFIG_KEY = "model_pusher_config"
+MODEL_PUSHER_EXPORT_MODEL_DIR_KEY = "export_model_dir"
+
+
+# Experiment:
+EXPERIMENT_CONFIG_KEY = "experiment_config"
+EXPERIMENT_DIR_KEY = "experiment_dir"
+EXPERIMENT_FILE_NAME_KEY = "experiment_file_name"
+
+COLUMNS = ["status",
+                "duration",
+                "credit_history",
+                "purpose",
+                "amount" ,
+                "savings",
+                "employment_duration",
+                "installment_rate",
+                "personal_status_sex",
+                "other_debtors",
+                "present_residence",
+                "property",
+                "age",
+                "other_installment_plans",
+                "housing",
+                "number_credits",
+                "job",
+                "people_liable",
+                "telephone",
+                "foreign_worker",
+                "credit_risk"]
