@@ -1,0 +1,437 @@
+{% extends 'header.html' %}
+
+{% block head %}
+
+
+<title>South German Banking Risk Predictor</title>
+{% endblock %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col-md-6 col-sm-12 col-xs-6 col-lg-6">
+
+
+        <form action="/predict" method="post">
+            <legend>South German Banking Credit Risk Prediction Form</legend>
+            <div class="mb-3">
+                <label class="form-label">Status</label>
+                <select class="form-control" name="status" placeholder="Enter a value of Status"
+                    required>
+                    <option value="1">
+                        1
+                    </option>
+                    <option value="2">
+                        2
+                    </option>
+                    <option value="3">
+                        3
+                    </option>
+                    <option value="4">
+                        4
+                    </option>
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Duration</label>
+                <input class="form-control" type="text" name="duration" placeholder="Enter a value of Duration"
+                    required />
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Credit History</label>
+                <select class="form-control" name="credit_history" placeholder="Enter a value of Credit History"
+                    required>
+
+                    <option value="0">
+                        0
+                    </option>
+                    <option value="1">
+                        1
+                    </option>
+                    <option value="2">
+                        2
+                    </option>
+                    <option value="3">
+                        3
+                    </option>
+                    <option value="4">
+                        4
+                    </option>
+
+                </select>
+            </div>
+            
+            <div class="mb-3">
+                <label class="form-label">Purpose</label>
+                <select class="form-control" name="purpose" placeholder="Enter a value of Purpose"
+                    required>
+
+                    <option value="0">
+                        0
+                    </option>
+                    <option value="1">
+                        1
+                    </option>
+                    <option value="2">
+                        2
+                    </option>
+                    <option value="3">
+                        4
+                    </option>
+                    <option value="5">
+                        5
+                    </option>
+                    <option value="6">
+                        6
+                    </option>
+                    <option value="7">
+                        7
+                    </option>
+                    <option value="8">
+                        8
+                    </option>
+                    <option value="9">
+                        9
+                    </option>
+                    <option value="10">
+                        10
+                    </option>
+                </select>
+            </div>
+            
+            <div class="mb-3">
+                <label class="form-label">Amount</label>
+                <input class="form-control" type="text" name="amount"
+                    placeholder="Enter a value of Amount" required />
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Savings</label>
+                <select class="form-control" name="savings" placeholder="Enter a value of Savings"
+                    required>
+
+                    <option value="1">
+                        1
+                    </option>
+                    <option value="2">
+                        2
+                    </option>
+                    <option value="3">
+                        3
+                    </option>
+                    <option value="4">
+                        4
+                    </option>
+                    <option value="5">
+                        5
+                    </option>
+
+                </select>
+            </div>
+            
+            <div class="mb-3">
+                <label class="form-label">Employment Duration</label>
+                <select class="form-control" name="employment_duration" placeholder="Enter a value of Employment Duration"
+                required>
+
+                <option value="1">
+                    1
+                </option>
+                <option value="2">
+                    2
+                </option>
+                <option value="3">
+                    3
+                </option>
+                <option value="4">
+                    4
+                </option>
+                <option value="5">
+                    5
+                </option>
+
+            </select>
+            </div>
+            
+            <div class="mb-3">
+                <label class="form-label">Installment Rate</label>
+                <select class="form-control" name="installment_rate" placeholder="Enter a value of Installment Rate"
+                    required>
+
+                    <option value="1">
+                        1
+                    </option>
+                    <option value="2">
+                        2
+                    </option>
+                    <option value="3">
+                        3
+                    </option>
+                    <option value="4">
+                        4
+                    </option>
+                </select>
+            </div>
+            
+           
+            <div class="mb-3">
+                <label class="form-label">Personal Status Sex</label>
+                <select class="form-control" name="personal_status_sex" placeholder="Enter a value of Personal Status Sex"
+                    required>
+
+                    <option value="1">
+                        1
+                    </option>
+                    <option value="2">
+                        2
+                    </option>
+                    <option value="3">
+                        3
+                    </option>
+                    <option value="4">
+                        4
+                    </option>
+
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Other Debtors</label>
+                <select class="form-control" name="other_debtors" placeholder="Enter a value of Other Debtors"
+                    required>
+
+                    <option value="1">
+                        1
+                    </option>
+                    <option value="2">
+                        2
+                    </option>
+                    <option value="3">
+                        3
+                    </option>
+
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Present Residence</label>
+                <select class="form-control" name="present_residence" placeholder="Enter a value of Present Residence"
+                    required>
+
+                    <option value="1">
+                        1
+                    </option>
+                    <option value="2">
+                        2
+                    </option>
+                    <option value="3">
+                        3
+                    </option>
+                    <option value="4">
+                        4
+                    </option>
+
+                </select>
+            </div>
+
+            
+            <div class="mb-3">
+                <label class="form-label">Property</label>
+                <select class="form-control" name="property" placeholder="Enter a value of property"
+                    required>
+
+                    <option value="1">
+                        1
+                    </option>
+                    <option value="2">
+                        2
+                    </option>
+                    <option value="3">
+                        3
+                    </option>
+                    <option value="4">
+                        4
+                    </option>
+
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Age</label>
+                <input class="form-control" type="text" name="age" placeholder="Enter a value of Age"
+                    required />
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Other Installment Plans</label>
+                <select class="form-control" name="other_installment_plans" placeholder="Enter a value of Other Installment Plans"
+                    required>
+
+                    <option value="1">
+                        1
+                    </option>
+                    <option value="2">
+                        2
+                    </option>
+                    <option value="3">
+                        3
+                    </option>
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Housing</label>
+                <select class="form-control" name="housing" placeholder="Enter a value of Housing"
+                    required>
+
+                    <option value="1">
+                        1
+                    </option>
+                    <option value="2">
+                        2
+                    </option>
+                    <option value="3">
+                        3
+                    </option>
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Number Credits</label>
+                <select class="form-control" name="number_credits" placeholder="Enter a value of Number Credits"
+                    required>
+
+                    <option value="1">
+                        1
+                    </option>
+                    <option value="2">
+                        2
+                    </option>
+                    <option value="3">
+                        3
+                    </option>
+                    <option value="4">
+                        4
+                    </option>
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Job</label>
+                <select class="form-control" name="job" placeholder="Enter a value of Job"
+                    required>
+
+                    <option value="1">
+                        1
+                    </option>
+                    <option value="2">
+                        2
+                    </option>
+                    <option value="3">
+                        3
+                    </option>
+                    <option value="4">
+                        4
+                    </option>
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">People Liable</label>
+                <select class="form-control" name="people_liable" placeholder="Enter a value of People Liable"
+                    required>
+
+                    <option value="1">
+                        1
+                    </option>
+                    <option value="2">
+                        2
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Telephone</label>
+                <select class="form-control" name="telephone" placeholder="Enter a value of Telephone"
+                    required>
+
+                    <option value="1">
+                        1
+                    </option>
+                    <option value="2">
+                        2
+                    </option>
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Foreign Worker</label>
+                <select class="form-control" name="foreign_worker" placeholder="Enter a value of Foreign Worker"
+                    required>
+
+                    <option value="1">
+                        1
+                    </option>
+                    <option value="2">
+                        2
+                    </option>
+                </select>
+            </div>
+
+
+
+            <div class="mb-3">
+                <input class="btn btn-primary" type="submit" value="Predict Bank Credit Risk" required />
+            </div>
+
+        </form>
+    </div>
+
+    <div class="col-md-6 col-sm-12 col-xs-6 col-lg-6">
+        <div class="card">
+            <div class="card-header">
+              South German Bank Credit Risk
+            </div>
+            <div class="card-body">
+        {% if context['banking_data'] is not none %}
+        <table class="table table-striped">
+            <caption>South German Bank Credit Risk Prediction</caption>
+            <tr>
+                <th>Input Feature</th>
+                <th>Feature Value</th>
+
+            </tr>
+            {% for column,value in context['banking_data'].items() %}
+
+
+
+            <tr>
+                <td>{{column}}</td>
+                <td>{{value[0]}}</td>
+            </tr>
+
+            {% endfor %}
+            <tr>
+
+                <td>Credit Risk </td>
+                <td>
+                    {{ context['credit_risk'] }}
+                </td>
+            </tr>
+        </table>
+
+        {% else %}
+       
+              <h5 class="card-title">Submit Form</h5>
+              <p class="card-text">Kindly provide necessary information to Predict South German Bank Credit Risk</p>
+            
+         
+
+        {% endif %}
+        Go to <a href="/" class="btn btn-primary">Home</a>
+    </div>
+</div>
+    </div>
+
+    {% endblock %}
