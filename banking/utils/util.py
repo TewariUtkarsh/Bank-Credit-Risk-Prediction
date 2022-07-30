@@ -168,7 +168,9 @@ def load_model_object_from_file(file_path: str):
                 model_object = dill.load(file_obj)
                 logging.info(f"Loading model object from File: [{file_path}]")
                 return model_object
-        raise Exception(f"File: [{file_path}] does not exists.")
+        else: 
+            return None
+        # raise Exception(f"File: [{file_path}] does not exists.")
     except Exception as e:
         raise BankingException(e, sys) from e
 
