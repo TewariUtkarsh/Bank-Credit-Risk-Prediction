@@ -143,8 +143,18 @@ class BankingPredictor:
     def __init__(self, model_dir:str) -> None:
         try:
             self.model_dir = model_dir
+            self.is_model_present = BankingPredictor.model_finder(model_dir=self.model_dir)
         except Exception as e:
             raise BankingException(e, sys) from e
+
+    @classmethod
+    def model_finder(self, model_dir:str) -> bool:
+        try:
+            if os.path.exists(model_dir):
+                return True
+            return False
+        except Exception as e:
+            raise BankingException(e, sys)
 
     def load_model_from_path(self) -> str:
         try:
