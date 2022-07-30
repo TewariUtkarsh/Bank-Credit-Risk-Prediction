@@ -119,56 +119,60 @@ def predict():
     }
 
     if request.method == 'POST':
-        status= int(request.form['status'])
-        duration= int(request.form['duration'])
-        credit_history= int(request.form['credit_history'])
-        purpose= int(request.form['purpose'])
-        amount= int(request.form['amount'])
-        savings= int(request.form['savings'])
-        employment_duration= int(request.form['employment_duration'])
-        installment_rate= int(request.form['installment_rate'])
-        personal_status_sex= int(request.form['personal_status_sex'])
-        other_debtors= int(request.form['other_debtors'])
-        present_residence= int(request.form['present_residence'])
-        property= int(request.form['property'])
-        age= int(request.form['age'])
-        other_installment_plans= int(request.form['other_installment_plans'])
-        housing= int(request.form['housing'])
-        number_credits= int(request.form['number_credits'])
-        job= int(request.form['job'])
-        people_liable= int(request.form['people_liable'])
-        telephone= int(request.form['telephone'])
-        foreign_worker= int(request.form['foreign_worker'])
-        
-        banking_data = BankingData(laufkont=status
-                                  ,laufzeit=duration
-                                  ,moral=credit_history
-                                  ,verw=purpose
-                                  ,hoehe=amount
-                                  ,sparkont=savings
-                                  ,beszeit=employment_duration
-                                  ,rate=installment_rate
-                                  ,famges=personal_status_sex
-                                  ,buerge=other_debtors
-                                  ,wohnzeit=present_residence
-                                  ,verm=property
-                                  ,alter=age
-                                  ,weitkred=other_installment_plans
-                                  ,wohn=housing
-                                  ,bishkred=number_credits
-                                  ,beruf=job
-                                  ,pers=people_liable
-                                  ,telef=telephone
-                                  ,gastarb=foreign_worker
-                                )
-        banking_df = banking_data.get_input_dataframe()
         banking_predictor = BankingPredictor(model_dir=SAVED_MODELS_DIR)
-        credit_risk = banking_predictor.predict(X=banking_df)
-        context = {
-            BANKING_DATA_KEY: banking_data.get_dict_for_data()[0],
-            CREDIT_RISK_KEY: credit_risk,
-        }
-        return render_template('predict.html', context=context)
+        if banking_predictor.is_model_present:
+            status= int(request.form['status'])
+            duration= int(request.form['duration'])
+            credit_history= int(request.form['credit_history'])
+            purpose= int(request.form['purpose'])
+            amount= int(request.form['amount'])
+            savings= int(request.form['savings'])
+            employment_duration= int(request.form['employment_duration'])
+            installment_rate= int(request.form['installment_rate'])
+            personal_status_sex= int(request.form['personal_status_sex'])
+            other_debtors= int(request.form['other_debtors'])
+            present_residence= int(request.form['present_residence'])
+            property= int(request.form['property'])
+            age= int(request.form['age'])
+            other_installment_plans= int(request.form['other_installment_plans'])
+            housing= int(request.form['housing'])
+            number_credits= int(request.form['number_credits'])
+            job= int(request.form['job'])
+            people_liable= int(request.form['people_liable'])
+            telephone= int(request.form['telephone'])
+            foreign_worker= int(request.form['foreign_worker'])
+            
+            banking_data = BankingData(laufkont=status
+                                    ,laufzeit=duration
+                                    ,moral=credit_history
+                                    ,verw=purpose
+                                    ,hoehe=amount
+                                    ,sparkont=savings
+                                    ,beszeit=employment_duration
+                                    ,rate=installment_rate
+                                    ,famges=personal_status_sex
+                                    ,buerge=other_debtors
+                                    ,wohnzeit=present_residence
+                                    ,verm=property
+                                    ,alter=age
+                                    ,weitkred=other_installment_plans
+                                    ,wohn=housing
+                                    ,bishkred=number_credits
+                                    ,beruf=job
+                                    ,pers=people_liable
+                                    ,telef=telephone
+                                    ,gastarb=foreign_worker
+                                    )
+            banking_df = banking_data.get_input_dataframe()
+            
+            credit_risk = banking_predictor.predict(X=banking_df)
+            context = {
+                BANKING_DATA_KEY: banking_data.get_dict_for_data()[0],
+                CREDIT_RISK_KEY: credit_risk,
+            }
+            return render_template('predict.html', context=context)
+        else:
+            return render_template("content_not_available.html")
     return render_template("predict.html", context=context)
 
 
